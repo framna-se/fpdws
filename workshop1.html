@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WS1 The Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F6F3;
+    --surface: #FFFFFF;
+    --surface-2: #EDEEEA;
+    --ink: #1B1C1A;
+    --ink-2: #4A4C48;
+    --muted: #767871;
+    --line: #D8DAD4;
+    --accent: #2C5C86;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #E3ECF4;
+    --focus: #2C5C86;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161718;
+      --surface: #1F2123;
+      --surface-2: #26282B;
+      --ink: #ECEBE6;
+      --ink-2: #C9C8C1;
+      --muted: #9A9B94;
+      --line: #35383C;
+      --accent: #86B0D9;
+      --accent-ink: #0F1A25;
+      --accent-soft: #22313F;
+      --focus: #86B0D9;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161718;
+    --surface: #1F2123;
+    --surface-2: #26282B;
+    --ink: #ECEBE6;
+    --ink-2: #C9C8C1;
+    --muted: #9A9B94;
+    --line: #35383C;
+    --accent: #86B0D9;
+    --accent-ink: #0F1A25;
+    --accent-soft: #22313F;
+    --focus: #86B0D9;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 28px 120px;
+  }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+  header.top { display: grid; gap: 10px; margin-bottom: 36px; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1 {
+    font-size: 34px;
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .lede { color: var(--ink-2); font-size: 18px; margin: 0; text-wrap: pretty; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 6px 14px;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px; color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  section { margin-bottom: 40px; }
+  h2 {
+    font-size: 22px; line-height: 1.2; font-weight: 600;
+    margin: 0 0 12px; letter-spacing: -0.005em; text-wrap: balance;
+  }
+  p { margin: 0 0 12px; text-wrap: pretty; }
+  p:last-child { margin-bottom: 0; }
+
+  .mail {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .mail-head {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 4px 12px;
+    padding: 14px 18px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--line);
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+  .mail-head dt { color: var(--muted); margin: 0; }
+  .mail-head dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+  .mail-body { padding: 18px; }
+  .mail-body p { margin-bottom: 14px; }
+  .mail-body p:last-child { margin-bottom: 0; }
+
+  ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 14px; }
+  ol.steps li {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  ol.steps li::before {
+    content: counter(step);
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+    font-weight: 500;
+    width: 30px; height: 30px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    margin-top: 2px;
+  }
+  ol.steps strong { font-weight: 600; }
+
+  .questions {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px 18px;
+    scroll-margin-top: 16px;
+  }
+  ol.q { list-style: none; counter-reset: q; margin: 0; padding: 0; }
+  ol.q li {
+    counter-increment: q;
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 10px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  ol.q li:last-child { border-bottom: 0; }
+  ol.q li::before {
+    content: counter(q);
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 2px;
+  }
+  ol.q strong { font-weight: 600; display: block; }
+  ol.q span { color: var(--ink-2); }
+
+  .note { color: var(--ink-2); }
+
+  details {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
+    margin-top: 12px;
+  }
+  details[open] { border-color: var(--accent); }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    min-height: 52px;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: var(--accent);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "";
+    flex: none;
+    width: 10px; height: 10px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-3px) rotate(45deg);
+    transition: transform 150ms ease;
+  }
+  details[open] > summary::after { transform: translateY(3px) rotate(-135deg); }
+  summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+  .d-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .d-body > details { margin-top: 16px; }
+  .d-body .mail { margin: 4px 0 4px; }
+
+  .jump {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    display: flex; justify-content: center;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    pointer-events: none;
+    background: linear-gradient(to top, var(--bg) 55%, transparent);
+  }
+  .jump a {
+    pointer-events: auto;
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 44px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  }
+  .jump a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .jump a::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-top: 2px solid currentColor; border-left: 2px solid currentColor;
+    transform: rotate(45deg) translateY(2px);
+  }
+
+  hr { border: 0; border-top: 1px solid var(--line); margin: 0 0 40px; }
+  @media (prefers-reduced-motion: reduce) { summary::after { transition: none; } }
+  @media (min-width: 600px) {
+    .wrap { padding-block: 48px 120px; }
+    h1 { font-size: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Workshop 1</div>
+    <h1>The brief</h1>
+    <p class="lede">Management has a feature request. Should you build it, or build something else, or maybe not build anything at all?</p>
+    <div class="meta"><span>45 minutes</span></div>
+  </header>
+
+  <section id="brief">
+    <h2>The brief</h2>
+    <p>You are the engineering team. This arrived this morning.</p>
+    <div class="mail">
+      <dl class="mail-head">
+        <dt>From</dt><dd>Head of Sales</dd>
+        <dt>To</dt><dd>Engineering</dd>
+        <dt>Subject</dt><dd>Onboarding assistant before Q4</dd>
+      </dl>
+      <div class="mail-body">
+        <p>We lost two of our three biggest deals last quarter. In both debriefs the buyer brought up onboarding, and in one of them the competitor's AI setup assistant came up by name.</p>
+        <p>We need an AI assistant in the app that walks new users through setup step by step, so this stops being an objection. It has to be live before Q4 so we can show it in the renewal conversations.</p>
+        <p>Can I get a plan and a rough estimate by Friday?</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="steps">
+    <h2>What to do at your table</h2>
+    <p class="note">You have about 25 minutes; we will call time. You are not here to plan or design the thing. If someone starts drawing architecture, go back to question 3.</p>
+    <ol class="steps">
+      <li><div><strong>90 seconds individually.</strong> In your notebook, one line per thought: who pays for this, and what would have to be true for it to create value.</div></li>
+      <li><div><strong>Pick a scribe, then go round the table.</strong> Each person reads one line aloud. No repeats. Keep going until nobody has anything new. The scribe keeps the table's list in their notebook. Use the table as your canvas if it helps: notebooks open in the middle, or a torn-out page each.</div></li>
+      <li><div><strong>The four questions, together.</strong> The scribe writes the table's answers. Question 2 is the list from step 2, grouped into assumptions and numbered.</div></li>
+      <li><div><strong>Vote for the riskiest assumption.</strong> The scribe reads the numbered list aloud. Each person names one number: the assumption that, if it turned out to be wrong, would sink the whole idea, and that nobody has actually checked. Most votes wins. On a tie, argue for one minute and pick.</div></li>
+      <li><div><strong>One sentence.</strong> We shouldn't build X until we know Y. X is what the brief asks for. Y is the winning assumption, turned into the thing you would need to find out. The scribe reads it out when we call time.</div></li>
+    </ol>
+    <p class="note" style="margin-top:16px">Stuck, or not sure what you are supposed to go after? Open the context below.</p>
+  </section>
+
+  <section id="questions" class="questions">
+    <ol class="q">
+      <li><div><strong>Who pays for this, and why?</strong></div></li>
+      <li><div><strong>What would have to be true for this to create value?</strong><span>List the assumptions.</span></div></li>
+      <li><div><strong>What is management actually asking?</strong><span>The request is a proposed answer. What was the question?</span></div></li>
+      <li><div><strong>What is the cheapest way to find out?</strong></div></li>
+    </ol>
+  </section>
+
+  <section id="context">
+    <h2>Context</h2>
+    <details>
+      <summary>Stuck? Open this</summary>
+      <div class="d-body">
+        <p>What an afternoon of asking around would turn up: both lost deals were companies with around 300 field staff, and in both the buyer was their head of operations, who never opened our app. Our own Customer Success team says every new client's rollout starts with the client typing their staff list in by hand from a spreadsheet, and every time, the client's IT department asks about single sign-on.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="second">
+    <h2>Finished ahead of time? Here's a second brief</h2>
+    <details>
+      <summary>Finished with the first brief? Open this</summary>
+      <div class="d-body">
+        <p>Same steps, new scribe.</p>
+        <div class="mail">
+          <dl class="mail-head">
+            <dt>From</dt><dd>Head of Customer Service</dd>
+            <dt>To</dt><dd>The app team</dd>
+            <dt>Subject</dt><dd>Chatbot in the app</dd>
+          </dl>
+          <div class="mail-body">
+            <p>Calls to customer service are up 30% since the summer and most of them are about tickets. We would like a chatbot in the app that can answer ticket questions so people do not have to call.</p>
+            <p>Ideally live before the timetable change in December. Please come back with a proposal.</p>
+          </div>
+        </div>
+        <details>
+          <summary>Stuck? Open this</summary>
+          <div class="d-body">
+            <p>What an afternoon of asking around would turn up: the fare structure changed in June: single, 24-hour and 30-day tickets were replaced by zone tickets, and two of the new ones have near-identical names. The customer service agents say most callers are standing at the stop with the app already open.</p>
+          </div>
+        </details>
+      </div>
+    </details>
+  </section>
+</div>
+
+<nav class="jump" aria-label="Shortcut">
+  <a href="#questions">The four questions</a>
+</nav>
+
+</body>
+</html>

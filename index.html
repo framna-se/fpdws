@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Product-Minded Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F6F3;
+    --surface: #FFFFFF;
+    --surface-2: #EDEEEA;
+    --ink: #1B1C1A;
+    --ink-2: #4A4C48;
+    --muted: #767871;
+    --line: #D8DAD4;
+    --accent: #2C5C86;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #E3ECF4;
+    --focus: #2C5C86;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161718;
+      --surface: #1F2123;
+      --surface-2: #26282B;
+      --ink: #ECEBE6;
+      --ink-2: #C9C8C1;
+      --muted: #9A9B94;
+      --line: #35383C;
+      --accent: #86B0D9;
+      --accent-ink: #0F1A25;
+      --accent-soft: #22313F;
+      --focus: #86B0D9;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161718;
+    --surface: #1F2123;
+    --surface-2: #26282B;
+    --ink: #ECEBE6;
+    --ink-2: #C9C8C1;
+    --muted: #9A9B94;
+    --line: #35383C;
+    --accent: #86B0D9;
+    --accent-ink: #0F1A25;
+    --accent-soft: #22313F;
+    --focus: #86B0D9;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 56px 20px 80px;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 6vw, 2.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .lede {
+    color: var(--ink-2);
+    margin: 0 0 40px;
+  }
+  h2 {
+    font-size: 0.85rem;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+  ul.exercises { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  a.card {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+  }
+  a.card:hover { border-color: var(--accent); background: var(--accent-soft); }
+  a.card:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  a.card .num {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  a.card .name { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+  footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Future Product Days · Masterclass</p>
+  <h1>The Product-Minded Engineer</h1>
+  <p class="lede">Exercises for the masterclass. Open the one your table is working on.</p>
+
+  <h2>Exercises</h2>
+  <ul class="exercises">
+    <li>
+      <a class="card" href="workshop1.html">
+        <span class="num">Workshop 1</span>
+        <span class="name">The brief</span>
+      </a>
+    </li>
+  </ul>
+
+  <footer>Framna · Future Product Days</footer>
+</div>
+</body>
+</html>
