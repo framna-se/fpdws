@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WS2 The Room Is The User</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F6F3; --surface: #FFFFFF; --surface-2: #EDEEEA;
+    --ink: #1B1C1A; --ink-2: #4A4C48; --muted: #767871; --line: #D8DAD4;
+    --accent: #2C5C86; --accent-ink: #FFFFFF; --accent-soft: #E3ECF4;
+    --hidden: #8A4B1F; --hidden-soft: #F6E9DD;
+    --focus: #2C5C86; color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161718; --surface: #1F2123; --surface-2: #26282B;
+      --ink: #ECEBE6; --ink-2: #C9C8C1; --muted: #9A9B94; --line: #35383C;
+      --accent: #86B0D9; --accent-ink: #0F1A25; --accent-soft: #22313F;
+      --hidden: #E0A570; --hidden-soft: #3A2A1C;
+      --focus: #86B0D9; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161718; --surface: #1F2123; --surface-2: #26282B;
+    --ink: #ECEBE6; --ink-2: #C9C8C1; --muted: #9A9B94; --line: #35383C;
+    --accent: #86B0D9; --accent-ink: #0F1A25; --accent-soft: #22313F;
+    --hidden: #E0A570; --hidden-soft: #3A2A1C;
+    --focus: #86B0D9; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+  .mono, .eyebrow, .meta { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  header.top { display: grid; gap: 10px; margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: 34px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+  .lede { color: var(--ink-2); font-size: 18px; margin: 0; text-wrap: pretty; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  section { margin-bottom: 40px; }
+  h2 { font-size: 22px; line-height: 1.2; font-weight: 600; margin: 0 0 12px; letter-spacing: -0.005em; text-wrap: balance; }
+  p { margin: 0 0 12px; text-wrap: pretty; }
+  p:last-child { margin-bottom: 0; }
+  .note { color: var(--ink-2); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; overflow: hidden; }
+  .card-head { padding: 12px 18px; background: var(--surface-2); border-bottom: 1px solid var(--line); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; color: var(--muted); }
+  .card-head strong { color: var(--ink); font-weight: 500; }
+  .card-body { padding: 18px; }
+  .card-body p { margin-bottom: 14px; }
+  .card-body p:last-child { margin-bottom: 0; }
+  blockquote.brief { margin: 0; font-size: 19px; line-height: 1.5; }
+  ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 14px; }
+  ol.steps li { counter-increment: step; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; }
+  ol.steps li::before {
+    content: counter(step); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px; font-weight: 500; width: 30px; height: 30px; display: grid; place-items: center;
+    border-radius: 50%; background: var(--accent); color: var(--accent-ink); margin-top: 2px;
+  }
+  ol.steps strong { font-weight: 600; }
+  .roles { display: grid; gap: 12px; }
+  .role { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+  .role h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+  .role p { color: var(--ink-2); font-size: 16px; }
+  ul.cards { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+  ul.cards a {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    min-height: 44px; padding: 10px 14px; border-radius: 6px;
+    background: var(--accent-soft); color: var(--accent); font-weight: 600; text-decoration: none; font-size: 16px;
+  }
+  ul.cards a::after { content: ""; flex: none; width: 8px; height: 8px; border-top: 2px solid currentColor; border-right: 2px solid currentColor; transform: rotate(45deg); }
+  ul.cards a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  details { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); margin-top: 12px; }
+  details[open] { border-color: var(--accent); }
+  summary {
+    list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    min-height: 52px; padding: 12px 16px; font-weight: 600; color: var(--accent);
+    -webkit-tap-highlight-color: transparent; user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: ""; flex: none; width: 10px; height: 10px;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    transform: translateY(-3px) rotate(45deg); transition: transform 150ms ease;
+  }
+  details[open] > summary::after { transform: translateY(3px) rotate(-135deg); }
+  summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+  .d-body { padding: 14px 16px 16px; border-top: 1px solid var(--line); }
+  .d-body h3 { margin: 14px 0 4px; font-size: 16px; font-weight: 600; }
+  .d-body h3:first-child { margin-top: 0; }
+  .d-body ul { margin: 0; padding-left: 20px; color: var(--ink-2); }
+  .d-body li { margin-bottom: 4px; }
+  @media (prefers-reduced-motion: reduce) { summary::after { transition: none; } }
+  @media (min-width: 600px) { .wrap { padding-block: 48px 64px; } h1 { font-size: 40px; } .roles { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Workshop 2</div>
+    <h1>The room is the user</h1>
+    <p class="lede">We can't bring real users into the room, so the room becomes the users.</p>
+    <div class="meta"><span>30 minutes</span><span>Pairs, role play</span></div>
+  </header>
+
+  <section id="product">
+    <h2>The product</h2>
+    <div class="card">
+      <div class="card-head"><strong>Parkinator 2000</strong></div>
+      <div class="card-body">
+        <p>Parkinator 2000 is a parking app. You pay for street parking from your phone, start and stop a session, and get a receipt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="brief">
+    <h2>The brief</h2>
+    <div class="card">
+      <div class="card-head">To the interviewers</div>
+      <div class="card-body">
+        <blockquote class="brief">You are on the team building Parkinator 2000. Management wants to add a loyalty program: park ten times, get the eleventh free. Your job is to find out whether that is the right thing to build. You have eight minutes with a real user. Go.</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <h2>How it runs</h2>
+    <p class="note">Pair up. One of you plays a user from a persona card, the other interviews. Decide between you who starts as which. Halfway through, you swap roles.</p>
+    <div class="roles">
+      <div class="role">
+        <h3>If you hold a card</h3>
+        <p>You are the user. Open your card, read it, and keep it to yourself. Play it as written: answer what you are asked, and do not volunteer what the card tells you to hold back.</p>
+        <ul class="cards">
+          <li><a href="ws2-cards/a-tomas.html">Card A: Tomas, delivery driver</a></li>
+          <li><a href="ws2-cards/b-nadia.html">Card B: Nadia, consultant</a></li>
+          <li><a href="ws2-cards/c-jonas.html">Card C: Jonas, parent of two</a></li>
+        </ul>
+      </div>
+      <div class="role">
+        <h3>If you are interviewing</h3>
+        <p>You are on the Parkinator 2000 team. You have eight minutes with a real user to find out whether the loyalty program is the right thing to build. Do not open the cards.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="steps">
+    <h2>What to do</h2>
+    <ol class="steps">
+      <li><div><strong>Pair up.</strong> Decide who holds a card first and who interviews. The cardholder picks a card.</div></li>
+      <li><div><strong>Round 1, 8 minutes.</strong> We will call time.</div></li>
+      <li><div><strong>Swap roles.</strong> New card, new interviewer. Round 2, 8 minutes.</div></li>
+      <li><div><strong>Write it down.</strong> In your notebook: the one thing that surprised you.</div></li>
+    </ol>
+  </section>
+
+  <section id="stuck">
+    <h2>Interviewing and stuck?</h2>
+    <details>
+      <summary>Open this</summary>
+      <div class="d-body">
+        <h3>Ask about the last time, not the future</h3>
+        <ul>
+          <li>"Would you use this?" invites a guess about an imagined future. "Walk me through the last time you parked" gives you something real to dig into.</li>
+          <li>Then: What triggered it? What did you do first? Where did you get stuck?</li>
+          <li>Get the whole trip, start to finish, not just the moment they open an app.</li>
+        </ul>
+        <h3>Follow the effort</h3>
+        <ul>
+          <li>What took the most time? What have you already tried?</li>
+          <li>What happened the last time this went wrong?</li>
+          <li>What happens if you leave it undone?</li>
+        </ul>
+        <h3>Treat complaints as clues</h3>
+        <ul>
+          <li>"It's expensive" or "it's annoying" is a starting point, not an answer. Ask what they did about it last time.</li>
+          <li>Give them room. Silence is fine. Let them finish before you ask the next thing.</li>
+        </ul>
+        <h3>Hold your idea back</h3>
+        <ul>
+          <li>If you describe the loyalty program and ask whether they like it, they will say yes. That tells you nothing.</li>
+          <li>If you must mention it, do it in the last minute, after you have heard what actually happened.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+</div>
+
+</body>
+</html>

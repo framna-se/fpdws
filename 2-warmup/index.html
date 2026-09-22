@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Leading Or Not</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F6F3; --surface: #FFFFFF; --surface-2: #EDEEEA;
+    --ink: #1B1C1A; --ink-2: #4A4C48; --muted: #767871; --line: #D8DAD4;
+    --accent: #2C5C86; --accent-ink: #FFFFFF; --accent-soft: #E3ECF4;
+    --hidden: #8A4B1F; --hidden-soft: #F6E9DD;
+    --focus: #2C5C86; color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161718; --surface: #1F2123; --surface-2: #26282B;
+      --ink: #ECEBE6; --ink-2: #C9C8C1; --muted: #9A9B94; --line: #35383C;
+      --accent: #86B0D9; --accent-ink: #0F1A25; --accent-soft: #22313F;
+      --hidden: #E0A570; --hidden-soft: #3A2A1C;
+      --focus: #86B0D9; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161718; --surface: #1F2123; --surface-2: #26282B;
+    --ink: #ECEBE6; --ink-2: #C9C8C1; --muted: #9A9B94; --line: #35383C;
+    --accent: #86B0D9; --accent-ink: #0F1A25; --accent-soft: #22313F;
+    --hidden: #E0A570; --hidden-soft: #3A2A1C;
+    --focus: #86B0D9; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+  .mono, .eyebrow, .meta { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  header.top { display: grid; gap: 10px; margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: 34px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+  .lede { color: var(--ink-2); font-size: 18px; margin: 0; text-wrap: pretty; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  section { margin-bottom: 40px; }
+  h2 { font-size: 22px; line-height: 1.2; font-weight: 600; margin: 0 0 12px; letter-spacing: -0.005em; text-wrap: balance; }
+  p { margin: 0 0 12px; text-wrap: pretty; }
+  p:last-child { margin-bottom: 0; }
+  .note { color: var(--ink-2); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; overflow: hidden; }
+  .card-head { padding: 12px 18px; background: var(--surface-2); border-bottom: 1px solid var(--line); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; color: var(--muted); }
+  .card-head strong { color: var(--ink); font-weight: 500; }
+  .card-body { padding: 18px; }
+  .card-body p { margin-bottom: 14px; }
+  .card-body p:last-child { margin-bottom: 0; }
+  blockquote.brief { margin: 0; font-size: 19px; line-height: 1.5; }
+  ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 14px; }
+  ol.steps li { counter-increment: step; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; }
+  ol.steps li::before {
+    content: counter(step); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px; font-weight: 500; width: 30px; height: 30px; display: grid; place-items: center;
+    border-radius: 50%; background: var(--accent); color: var(--accent-ink); margin-top: 2px;
+  }
+  ol.steps strong { font-weight: 600; }
+  .roles { display: grid; gap: 12px; }
+  .role { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+  .role h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+  .role p { color: var(--ink-2); font-size: 16px; }
+  @media (min-width: 600px) { .wrap { padding-block: 48px 64px; } h1 { font-size: 40px; } .roles { grid-template-columns: 1fr 1fr; } }
+
+  :root { --good: #2F6B3A; --good-soft: #E2F0E4; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --good: #8FCB9B; --good-soft: #1F3324; } }
+  :root[data-theme="dark"] { --good: #8FCB9B; --good-soft: #1F3324; }
+  .wrap { padding-block: 28px 140px; }
+  ol.qs { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .qbtn {
+    width: 100%; text-align: left; display: grid; grid-template-columns: 28px 1fr 22px; gap: 10px; align-items: start;
+    padding: 12px 14px; min-height: 52px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface);
+    color: var(--ink); font: inherit; line-height: 1.45; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .qbtn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .num { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; color: var(--muted); padding-top: 3px; }
+  .flag { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--line); margin-top: 2px; position: relative; }
+  .qbtn[aria-pressed="true"] { border-color: var(--hidden); background: var(--hidden-soft); }
+  .qbtn[aria-pressed="true"] .flag { border-color: var(--hidden); background: var(--hidden); }
+  .qbtn[aria-pressed="true"] .flag::after { content: ""; position: absolute; left: 6px; top: 2px; width: 4px; height: 9px; border-right: 2px solid var(--accent-ink); border-bottom: 2px solid var(--accent-ink); transform: rotate(45deg); }
+  .why { display: none; padding: 8px 14px 2px 52px; color: var(--ink-2); font-size: 15px; }
+  .verdict { font-weight: 600; }
+  .revealed .why { display: block; }
+  .revealed .qbtn { cursor: default; }
+  .revealed .q[data-lead="1"] .verdict { color: var(--hidden); }
+  .revealed .q[data-lead="0"] .verdict { color: var(--good); }
+  .revealed .q[data-lead="1"] .qbtn { border-color: var(--hidden); }
+  .revealed .q[data-lead="0"] .qbtn { border-color: var(--good); }
+  .revealed .q.miss .qbtn { background: var(--hidden-soft); }
+  .revealed .q.wrong .qbtn { background: var(--good-soft); }
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; align-items: center; gap: 12px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, var(--bg) 60%, transparent); pointer-events: none;
+  }
+  .bar > * { pointer-events: auto; }
+  .count { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  #reveal {
+    min-height: 44px; padding: 10px 20px; border-radius: 999px; border: 0; background: var(--ink); color: var(--bg);
+    font: inherit; font-weight: 500; font-size: 15px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  }
+  #reveal:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  #result { display: none; margin-top: 24px; padding: 14px 16px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); }
+  .revealed #result { display: block; }
+  #result p { margin: 0; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .legend .l::before { background: var(--hidden); }
+  .legend .g::before { background: var(--good); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Workshop 2 · Drill</div>
+    <h1>Leading or not?</h1>
+    <p class="lede">16 questions you might ask a Parkinator 2000 user. Some are good. Some hand the user the answer you want. Mark every question you think is leading.</p>
+    <div class="meta"><span>5 minutes</span><span>On your own</span></div>
+  </header>
+
+  <section>
+    <p class="note">Tap a question to mark it as leading. Tap again to unmark. When you have been through all 16, reveal the key.</p>
+    <ol class="qs" id="qs">
+      <li class="q" data-lead="0">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">1</span><span class="text">Tell me about the last time you parked in the city.</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> A specific past event. You get what actually happened, not an opinion.</div>
+      </li>
+      <li class="q" data-lead="1">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">2</span><span class="text">Would you use a loyalty program where the eleventh parking is free?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Pitches the idea and asks for a prediction. People say yes to be nice.</div>
+      </li>
+      <li class="q" data-lead="1">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">3</span><span class="text">Don&#x27;t you find parking apps frustrating?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> The answer is built into the question.</div>
+      </li>
+      <li class="q" data-lead="0">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">4</span><span class="text">What did you do right after you stopped the session?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Follows the real sequence of events past the moment you care about.</div>
+      </li>
+      <li class="q" data-lead="0">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">5</span><span class="text">Which apps do you have on your phone for parking? Can you show me?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Asks for evidence, not memory. Showing beats telling.</div>
+      </li>
+      <li class="q" data-lead="0">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">6</span><span class="text">Walk me through what happens after you park, until you&#x27;re completely done with it.</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Covers the whole task, including the parts you didn&#x27;t know existed.</div>
+      </li>
+      <li class="q" data-lead="1">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">7</span><span class="text">How much would you love a discount for parking often?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Assumes they would love it and only asks how much.</div>
+      </li>
+      <li class="q" data-lead="1">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">8</span><span class="text">If we added rewards, you&#x27;d park with us more often, right?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> A tag question. It asks for agreement, not information.</div>
+      </li>
+      <li class="q" data-lead="0">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">9</span><span class="text">What happened the last time a parking payment went wrong?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> A real incident, with consequences and workarounds attached.</div>
+      </li>
+      <li class="q" data-lead="0">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">10</span><span class="text">In the past week, when did you park, and where?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Concrete and recent. Easy to answer honestly, hard to embellish.</div>
+      </li>
+      <li class="q" data-lead="1">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">11</span><span class="text">Is price the main reason you&#x27;d switch parking apps?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Offers the answer and closes the question to yes or no.</div>
+      </li>
+      <li class="q" data-lead="1">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">12</span><span class="text">Wouldn&#x27;t it be great if the app remembered your usual spots?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> A feature pitch dressed as a question.</div>
+      </li>
+      <li class="q" data-lead="1">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">13</span><span class="text">Do you think a lot of people would use a free-parking reward?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Asks them to speculate about other people. Nobody knows.</div>
+      </li>
+      <li class="q" data-lead="0">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">14</span><span class="text">What took the most time the last time you parked?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Follows the effort. Points at the real problem.</div>
+      </li>
+      <li class="q" data-lead="0">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">15</span><span class="text">What have you tried to make parking less of a hassle?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> Workarounds show how much a problem actually matters.</div>
+      </li>
+      <li class="q" data-lead="1">
+        <button type="button" class="qbtn" aria-pressed="false"><span class="num">16</span><span class="text">You&#x27;d rather pay in the app than by text message, wouldn&#x27;t you?</span><span class="flag" aria-hidden="true"></span></button>
+        <div class="why"><span class="verdict"></span> States your preference and asks them to confirm it.</div>
+      </li>
+    </ol>
+    <div id="result"><p id="score"></p><div class="legend"><span class="l">Leading</span><span class="g">Good</span></div></div>
+  </section>
+</div>
+
+<div class="bar">
+  <span class="count" id="count">0 marked</span>
+  <button type="button" id="reveal">Reveal the key</button>
+</div>
+
+<script>
+(function () {
+  var list = document.getElementById('qs');
+  var count = document.getElementById('count');
+  var reveal = document.getElementById('reveal');
+  var revealed = false;
+  function marked() { return list.querySelectorAll('.qbtn[aria-pressed="true"]').length; }
+  list.addEventListener('click', function (e) {
+    if (revealed) return;
+    var b = e.target.closest('.qbtn'); if (!b) return;
+    b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    count.textContent = marked() + ' marked';
+  });
+  reveal.addEventListener('click', function () {
+    if (revealed) {
+      revealed = false; document.body.classList.remove('revealed'); reveal.textContent = 'Reveal the key';
+      list.querySelectorAll('.q').forEach(function (li) { li.classList.remove('miss','wrong'); li.querySelector('.qbtn').setAttribute('aria-pressed','false'); });
+      count.textContent = '0 marked'; return;
+    }
+    revealed = true; document.body.classList.add('revealed');
+    var caught = 0, wrong = 0, totalLead = 0;
+    list.querySelectorAll('.q').forEach(function (li) {
+      var lead = li.dataset.lead === '1', m = li.querySelector('.qbtn').getAttribute('aria-pressed') === 'true';
+      li.querySelector('.verdict').textContent = lead ? 'Leading.' : 'Good.';
+      if (lead) { totalLead++; if (m) caught++; else li.classList.add('miss'); }
+      else if (m) { wrong++; li.classList.add('wrong'); }
+    });
+    var s = 'You caught ' + caught + ' of ' + totalLead + ' leading questions';
+    s += wrong ? ', and flagged ' + wrong + ' good ' + (wrong === 1 ? 'one' : 'ones') + ' by mistake.' : '.';
+    document.getElementById('score').textContent = s;
+    reveal.textContent = 'Start over';
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+})();
+</script>
+</body>
+</html>

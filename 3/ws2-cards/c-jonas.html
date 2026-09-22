@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Card C Jonas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F6F3; --surface: #FFFFFF; --surface-2: #EDEEEA;
+    --ink: #1B1C1A; --ink-2: #4A4C48; --muted: #767871; --line: #D8DAD4;
+    --accent: #2C5C86; --accent-ink: #FFFFFF; --accent-soft: #E3ECF4;
+    --hidden: #8A4B1F; --hidden-soft: #F6E9DD;
+    --focus: #2C5C86; color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161718; --surface: #1F2123; --surface-2: #26282B;
+      --ink: #ECEBE6; --ink-2: #C9C8C1; --muted: #9A9B94; --line: #35383C;
+      --accent: #86B0D9; --accent-ink: #0F1A25; --accent-soft: #22313F;
+      --hidden: #E0A570; --hidden-soft: #3A2A1C;
+      --focus: #86B0D9; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161718; --surface: #1F2123; --surface-2: #26282B;
+    --ink: #ECEBE6; --ink-2: #C9C8C1; --muted: #9A9B94; --line: #35383C;
+    --accent: #86B0D9; --accent-ink: #0F1A25; --accent-soft: #22313F;
+    --hidden: #E0A570; --hidden-soft: #3A2A1C;
+    --focus: #86B0D9; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+  .mono, .eyebrow, .meta { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  header.top { display: grid; gap: 10px; margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: 34px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+  .lede { color: var(--ink-2); font-size: 18px; margin: 0; text-wrap: pretty; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  section { margin-bottom: 40px; }
+  h2 { font-size: 22px; line-height: 1.2; font-weight: 600; margin: 0 0 12px; letter-spacing: -0.005em; text-wrap: balance; }
+  p { margin: 0 0 12px; text-wrap: pretty; }
+  p:last-child { margin-bottom: 0; }
+  .note { color: var(--ink-2); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; overflow: hidden; }
+  .card-head { padding: 12px 18px; background: var(--surface-2); border-bottom: 1px solid var(--line); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; color: var(--muted); }
+  .card-head strong { color: var(--ink); font-weight: 500; }
+  .card-body { padding: 18px; }
+  .card-body p { margin-bottom: 14px; }
+  .card-body p:last-child { margin-bottom: 0; }
+  blockquote.brief { margin: 0; font-size: 19px; line-height: 1.5; }
+  ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 14px; }
+  ol.steps li { counter-increment: step; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; }
+  ol.steps li::before {
+    content: counter(step); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px; font-weight: 500; width: 30px; height: 30px; display: grid; place-items: center;
+    border-radius: 50%; background: var(--accent); color: var(--accent-ink); margin-top: 2px;
+  }
+  ol.steps strong { font-weight: 600; }
+  .roles { display: grid; gap: 12px; }
+  .role { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+  .role h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+  .role p { color: var(--ink-2); font-size: 16px; }
+  @media (min-width: 600px) { .wrap { padding-block: 48px 64px; } h1 { font-size: 40px; } .roles { grid-template-columns: 1fr 1fr; } }
+
+  .warn { display: flex; align-items: center; gap: 10px; padding: 10px 14px; margin-bottom: 24px; border-radius: 6px;
+    background: var(--hidden-soft); color: var(--hidden); font-weight: 600; font-size: 15px; }
+  .part { margin-bottom: 22px; }
+  .part h2 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 500; }
+  .part p { font-size: 17px; }
+  .part.hidden { background: var(--surface); border: 1px solid var(--hidden); border-left-width: 4px; border-radius: 6px; padding: 14px 16px; }
+  .part.hidden h2 { color: var(--hidden); }
+  .product { color: var(--ink-2); font-size: 15px; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--line); }
+  @page { size: A5; margin: 12mm; }
+  @media print {
+    body { background: #fff; color: #000; font-size: 11pt; }
+    .wrap { max-width: none; padding: 0; }
+    .warn { border: 1px solid #000; background: none; color: #000; }
+    .part.hidden { border-color: #000; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Workshop 2 · Persona card C</div>
+    <h1>Jonas, 38, parent of two</h1>
+  </header>
+  <div class="warn">You are the user. Do not show this card to your interviewer.</div>
+
+  <div class="part"><h2>Your situation</h2><p>You drop two kids at two different schools every morning. You park for about ten minutes, twice a day, in the same two streets.</p></div>
+  <div class="part"><h2>How you handle it today</h2><p>Your partner books both cars from her phone, on her account. You just drive.</p></div>
+  <div class="part"><h2>What you will happily volunteer</h2><p>Honestly, nothing. It works fine. You do not really think about parking.</p></div>
+  <div class="part hidden"><h2>The hidden fact. Never volunteer this.</h2><p>You do not have the app. You have never had it. Every trip you make is recorded in Parkinator 2000 as your partner&#x27;s usage. A loyalty programme built on account activity would be invisible to you, and half of your household&#x27;s parking is attributed to one person.</p></div>
+  <div class="part"><h2>How to play it</h2><p>You are cheerful, satisfied and completely unhelpful. Give short answers. Only if the interviewer asks you to walk through exactly what happened the last time you parked does it come out that you never touched the app.</p></div>
+
+  <p class="product"><strong>Parkinator 2000</strong> is a parking app. You pay for street parking from your phone, start and stop a session, and get a receipt.</p>
+</div>
+</body>
+</html>
