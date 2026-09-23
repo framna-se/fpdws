@@ -2,11 +2,251 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>WS3 Constraint Cards</title>
-<meta http-equiv="refresh" content="0; url=stage-1/">
-<link rel="canonical" href="stage-1/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F6F3; --surface: #FFFFFF; --surface-2: #EDEEEA;
+    --ink: #1B1C1A; --ink-2: #4A4C48; --muted: #767871; --line: #D8DAD4;
+    --accent: #2C5C86; --accent-ink: #FFFFFF; --accent-soft: #E3ECF4;
+    --hidden: #8A4B1F; --hidden-soft: #F6E9DD;
+    --focus: #2C5C86; color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161718; --surface: #1F2123; --surface-2: #26282B;
+      --ink: #ECEBE6; --ink-2: #C9C8C1; --muted: #9A9B94; --line: #35383C;
+      --accent: #86B0D9; --accent-ink: #0F1A25; --accent-soft: #22313F;
+      --hidden: #E0A570; --hidden-soft: #3A2A1C;
+      --focus: #86B0D9; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161718; --surface: #1F2123; --surface-2: #26282B;
+    --ink: #ECEBE6; --ink-2: #C9C8C1; --muted: #9A9B94; --line: #35383C;
+    --accent: #86B0D9; --accent-ink: #0F1A25; --accent-soft: #22313F;
+    --hidden: #E0A570; --hidden-soft: #3A2A1C;
+    --focus: #86B0D9; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 40rem; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; }
+  .mono, .eyebrow, .meta { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  header.top { display: grid; gap: 10px; margin-bottom: 36px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: 34px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+  .lede { color: var(--ink-2); font-size: 18px; margin: 0; text-wrap: pretty; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  section { margin-bottom: 40px; }
+  h2 { font-size: 22px; line-height: 1.2; font-weight: 600; margin: 0 0 12px; letter-spacing: -0.005em; text-wrap: balance; }
+  p { margin: 0 0 12px; text-wrap: pretty; }
+  p:last-child { margin-bottom: 0; }
+  .note { color: var(--ink-2); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; overflow: hidden; }
+  .card-head { padding: 12px 18px; background: var(--surface-2); border-bottom: 1px solid var(--line); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; color: var(--muted); }
+  .card-head strong { color: var(--ink); font-weight: 500; }
+  .card-body { padding: 18px; }
+  .card-body p { margin-bottom: 14px; }
+  .card-body p:last-child { margin-bottom: 0; }
+  blockquote.brief { margin: 0; font-size: 19px; line-height: 1.5; }
+  ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 14px; }
+  ol.steps li { counter-increment: step; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; }
+  ol.steps li::before {
+    content: counter(step); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px; font-weight: 500; width: 30px; height: 30px; display: grid; place-items: center;
+    border-radius: 50%; background: var(--accent); color: var(--accent-ink); margin-top: 2px;
+  }
+  ol.steps strong { font-weight: 600; }
+  .roles { display: grid; gap: 12px; }
+  .role { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; }
+  .role h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; }
+  .role p { color: var(--ink-2); font-size: 16px; }
+  @media (min-width: 600px) { .wrap { padding-block: 48px 64px; } h1 { font-size: 40px; } .roles { grid-template-columns: 1fr 1fr; } }
+
+  /* email card */
+  .mail-head { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; padding: 14px 18px; background: var(--surface-2); border-bottom: 1px solid var(--line);
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; line-height: 1.45; margin: 0; }
+  .mail-head dt { color: var(--muted); }
+  .mail-head dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+  /* the question */
+  .question { border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 6px; padding: 16px 18px; margin-top: 14px; }
+  .question p:first-child { font-size: 20px; line-height: 1.35; font-weight: 600; margin: 0 0 6px; text-wrap: balance; }
+  .question p:last-child { color: var(--ink-2); font-size: 15px; }
+  /* resources */
+  .res h3 { font-size: 16px; font-weight: 600; margin: 18px 0 6px; }
+  .res h3:first-child { margin-top: 0; }
+  .res ul { margin: 0; padding-left: 20px; color: var(--ink-2); }
+  .res li { margin-bottom: 4px; }
+  /* steps */
+  ol.steps > li { grid-template-columns: max-content 1fr; }
+  ol.steps > li::before { content: "Step " counter(step); font-size: 12px; letter-spacing: 0.04em; white-space: nowrap; height: 26px; width: auto; padding: 0 10px; border-radius: 999px; margin-top: 1px; }
+  ol.steps ul { margin: 6px 0 8px; padding-left: 20px; list-style: disc; }
+  ol.steps ul li { margin-bottom: 2px; }
+  /* draw */
+  .drawrow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  #draw { min-height: 44px; padding: 10px 20px; border-radius: 999px; border: 0; background: var(--ink); color: var(--bg); font: inherit; font-weight: 500; font-size: 15px; cursor: pointer; }
+  #draw:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .constraint { display: none; margin-top: 14px; background: var(--surface); border: 1px solid var(--accent); border-left: 4px solid var(--accent); border-radius: 6px; overflow: hidden; }
+  .constraint.shown { display: block; }
+  .constraint .c-head { display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: var(--accent-soft); border-bottom: 1px solid var(--line); }
+  .constraint .c-icon { font-size: 22px; line-height: 1; }
+  .constraint .c-name { font-size: 20px; font-weight: 600; letter-spacing: -0.005em; }
+  .constraint .c-body { padding: 14px 18px 16px; }
+  .constraint .c-body p { margin: 0 0 10px; }
+  .constraint .c-body p:last-child { margin: 0; }
+  .constraint .c-body strong { font-weight: 600; }
+  .c-note { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  /* toggles */
+  details { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); margin-top: 12px; }
+  details[open] { border-color: var(--accent); }
+  summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 12px 16px; font-weight: 600; color: var(--accent); -webkit-tap-highlight-color: transparent; user-select: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-3px) rotate(45deg); transition: transform 150ms ease; }
+  details[open] > summary::after { transform: translateY(3px) rotate(-135deg); }
+  summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+  .d-body { padding: 14px 16px 16px; border-top: 1px solid var(--line); }
+  @media (prefers-reduced-motion: reduce) { summary::after { transition: none; } }
+</style>
 </head>
 <body>
-<p><a href="stage-1/">Continue to stage 1</a></p>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Workshop 3</div>
+    <h1>Constraint cards</h1>
+    <p class="lede">Every table gets the same question. Each table draws a card that rules out one way of answering it, and plans the cheapest way that's left.</p>
+    <div class="meta"><span>45 minutes</span></div>
+  </header>
+
+  <section id="question">
+    <h2>The question</h2>
+    <p>You're on the Parkinator 2000 team. This email arrived this morning.</p>
+    <div class="card">
+      <dl class="mail-head">
+        <dt>From</dt><dd>Head of Product</dd>
+        <dt>To</dt><dd>The app team</dd>
+        <dt>Subject</dt><dd>Parkinator Plus</dd>
+      </dl>
+      <div class="card-body">
+        <p>We're planning a paid tier for Q1: Parkinator Plus, 29 kr a month. No ads, a monthly receipt sent straight to your employer, and extending a parking session by text message.</p>
+        <p>Before we spend a quarter building it, I'd like to know whether drivers will actually pay for it, not just say they would. Can you find out?</p>
+      </div>
+    </div>
+    <div class="question">
+      <p>Will drivers actually pay 29 kr a month for Parkinator Plus, or do they just say they would?</p>
+      <p>Every table has this question. What differs is the card you draw.</p>
+    </div>
+  </section>
+
+  <section id="resources" class="res">
+    <h2>What you have to work with</h2>
+    <h3>The app</h3>
+    <ul>
+      <li>120,000 drivers use it each month, about 35,000 parking sessions a day, in Stockholm, Gothenburg and Malmö</li>
+      <li>A release goes out every Thursday. Feature flags and staged rollouts (for example to 5 percent of drivers) are in place.</li>
+      <li>Remote config can change prices and text, and show or hide any existing screen or button, with no release</li>
+      <li>A hidden "Upgrade" row in Settings and a "Coming soon" screen are still in the app from an old project. Remote config can switch them on.</li>
+      <li>Ads on the parking session screen bring in about 40,000 kr a month</li>
+    </ul>
+    <h3>What's already known</h3>
+    <ul>
+      <li>Every screen view and tap is logged and searchable. Nobody has looked at the data for months.</li>
+      <li>The support inbox gets about 300 emails a week</li>
+    </ul>
+    <h3>People</h3>
+    <ul>
+      <li>The team: you, four other engineers and one designer. There's no product manager right now.</li>
+      <li>Tomas, Nadia and Jonas from this morning are three of your drivers. Use what they told you.</li>
+    </ul>
+  </section>
+
+  <section id="constraint">
+    <h2>Your constraint</h2>
+    <p class="note">Each card rules out one way of answering the question. Your job is to find another.</p>
+    <p class="note">One person at the table presses <strong>Draw</strong> and reads the card out loud. That card is your table's constraint. If two people pressed, the first card counts.</p>
+    <div class="drawrow">
+      <button type="button" id="draw">Draw</button>
+    </div>
+    <div class="constraint" id="constraint" aria-live="polite">
+      <div class="c-head"><span class="c-icon" id="c-icon"></span><span class="c-name" id="c-name"></span></div>
+      <div class="c-body">
+        <p><strong>The rule.</strong> <span id="c-rule"></span></p>
+        <p><strong>Still allowed.</strong> <span id="c-allowed"></span></p>
+      </div>
+    </div>
+    <p class="c-note" id="c-note" hidden>This card stays on this phone. Read it out so the whole table has it.</p>
+  </section>
+
+  <section id="steps">
+    <h2>What to do at your table</h2>
+    <p class="note">You have about 25 minutes. We'll call time. You're not designing Plus. You're planning how to find out whether drivers would pay for it.</p>
+    <ol class="steps">
+      <li><div>One person presses Draw and reads the card out loud.</div></li>
+      <li><div><strong>90 seconds on your own, in your notebook.</strong> Write down ways to find out whether drivers would pay that your card still allows. One line per idea.</div></li>
+      <li><div><strong>Pick a scribe.</strong> Go round the table, one idea each, until nobody has any left.</div></li>
+      <li><div><strong>Agree on one plan:</strong> the cheapest thing that would give you a real answer. The scribe writes down three things:
+        <ul>
+          <li>what you'd do</li>
+          <li>when you'd have an answer (a day or a week)</li>
+          <li>what result would make you say no to Plus</li>
+        </ul>
+      </div></li>
+      <li><div>When we call "five minutes left", the scribe puts your plan into Menti (code on the screen). One answer per table: The card / What you would do. Keep the other two in the notebook; we may ask.</div></li>
+      <li><div>Finished before that? Open "Finished?" below.</div></li>
+    </ol>
+
+    <details>
+      <summary>Stuck? Open this</summary>
+      <div class="d-body">
+        <p>Work backwards. What result would make you say no to Plus? What's the smallest thing that could produce that result under your card?</p>
+        <p>Your card removes one route. Look at what's left: the app you can change without a release, the data that's already logged, the three drivers from this morning, the things you could fake. The list from the last talk is a good checklist: a paper sketch, a clickable mock, a button that leads to "coming soon", a person doing by hand what the software would do, a real build behind a flag. Which is the cheapest one your card allows?</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Finished? Open this</summary>
+      <div class="d-body">
+        <p>Press Draw again for a second card. Same steps, about ten minutes.</p>
+        <p>Then decide: which of your two plans would you run first, and why not the other?</p>
+        <p>Only your first plan goes into Menti.</p>
+      </div>
+    </details>
+  </section>
+</div>
+
+<script>
+(function () {
+  var cards = [{"icon": "🚫", "name": "No code", "rule": "Nothing gets built, released or changed in the app, not even by remote config.", "allowed": "Anything that doesn't touch the app: sketching screens, talking to drivers, watching them, reading the support inbox, looking at data that's already logged."}, {"icon": "🎭", "name": "Nothing behind the button", "rule": "You can build and release whatever you like, but Plus itself must not exist. Anything a driver taps has to lead to a dead end, or to a person doing the job by hand.", "allowed": "Everything else, including talking to drivers and looking at data."}, {"icon": "🙈", "name": "No drivers", "rule": "Nothing that involves a driver: no interviews, no surveys, no emails, no watching them, and nothing new in the app for drivers to see or tap.", "allowed": "Anything already inside the company: the logged data, the support inbox, what competitors charge, your own experience."}, {"icon": "⏳", "name": "One afternoon", "rule": "It's 13:00. By 17:00 today you need an answer good enough to act on.", "allowed": "Anything you can start and finish before 17:00."}, {"icon": "💳", "name": "5,000 kr and no engineers", "rule": "The other engineers and the designer are booked on other work for a month. You have time, but you can't write code, change config or design screens.", "allowed": "Your own time, and a company card with 5,000 kr on it."}, {"icon": "🏗️", "name": "Build it properly", "rule": "Your plan is already decided: build the real thing, all three features, behind a feature flag, and roll it out to 5 percent of drivers. Then measure.", "allowed": "Anything. Your job is the measuring: what you'd measure, what number means go, what number means stop, and which week you'd know."}];
+  var btn = document.getElementById('draw'), box = document.getElementById('constraint'), note = document.getElementById('c-note');
+  var KEY = 'ws3-card';
+  var last = -1;
+  function show(i) {
+    var c = cards[i];
+    document.getElementById('c-icon').textContent = c.icon;
+    document.getElementById('c-name').textContent = c.name;
+    document.getElementById('c-rule').textContent = c.rule;
+    document.getElementById('c-allowed').textContent = c.allowed;
+    box.classList.add('shown'); note.hidden = false;
+    btn.textContent = 'Draw again';
+    last = i;
+  }
+  try { var saved = localStorage.getItem(KEY); if (saved !== null && cards[+saved]) show(+saved); } catch (e) {}
+  btn.addEventListener('click', function () {
+    var i; do { i = Math.floor(Math.random() * cards.length); } while (i === last);
+    show(i);
+    try { localStorage.setItem(KEY, String(i)); } catch (e) {}
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+})();
+</script>
+
 </body>
 </html>
