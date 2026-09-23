@@ -58,8 +58,8 @@
   .card-body p:last-child { margin-bottom: 0; }
   blockquote.brief { margin: 0; font-size: 19px; line-height: 1.5; }
   ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 14px; }
-  ol.steps li { counter-increment: step; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; }
-  ol.steps li::before {
+  ol.steps > li { counter-increment: step; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: start; }
+  ol.steps > li::before {
     content: counter(step); font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 13px; font-weight: 500; width: 30px; height: 30px; display: grid; place-items: center;
     border-radius: 50%; background: var(--accent); color: var(--accent-ink); margin-top: 2px;
@@ -168,7 +168,7 @@
     </ul>
   </section>
 
-  <section id="constraint">
+  <section id="your-constraint">
     <h2>Your constraint</h2>
     <p class="note">Each card rules out one way of answering the question. Your job is to find another.</p>
     <p class="note">One person at the table presses <strong>Draw</strong> and reads the card out loud. That card is your table's constraint. If two people pressed, the first card counts.</p>
