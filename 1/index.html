@@ -129,32 +129,38 @@
   .mail-body p:last-child { margin-bottom: 0; }
 
   ol.steps { list-style: none; counter-reset: step; margin: 0; padding: 0; display: grid; gap: 14px; }
-  ol.steps li {
+  ol.steps > li {
     counter-increment: step;
     display: grid;
-    grid-template-columns: 30px 1fr;
+    grid-template-columns: max-content 1fr;
     gap: 12px;
     align-items: start;
   }
-  ol.steps li::before {
-    content: counter(step);
+  ol.steps > li::before {
+    content: "Step " counter(step);
     font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-    width: 30px; height: 30px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    height: 26px;
+    padding: 0 10px;
     display: grid; place-items: center;
-    border-radius: 50%;
+    border-radius: 999px;
     background: var(--accent);
     color: var(--accent-ink);
-    margin-top: 2px;
+    margin-top: 1px;
   }
   ol.steps strong { font-weight: 600; }
+  ol.steps ul { margin: 6px 0 8px; padding-left: 20px; list-style: disc; }
+  ol.steps ul li { margin-bottom: 6px; }
+  ol.steps ul li strong { font-weight: 600; }
 
   .questions {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 6px;
-    padding: 6px 18px;
+    padding: 16px 18px 6px;
     scroll-margin-top: 16px;
   }
   ol.q { list-style: none; counter-reset: q; margin: 0; padding: 0; }
@@ -279,26 +285,45 @@
     </div>
   </section>
 
-  <section id="steps">
-    <h2>What to do at your table</h2>
-    <p class="note">You have about 25 minutes; we will call time. You are not here to plan or design the thing. If someone starts drawing architecture, go back to question 3.</p>
-    <ol class="steps">
-      <li><div><strong>90 seconds individually.</strong> In your notebook, one line per thought: who pays for this, and what would have to be true for it to create value.</div></li>
-      <li><div><strong>Pick a scribe, then go round the table.</strong> Each person reads one line aloud. No repeats. Keep going until nobody has anything new. The scribe keeps the table's list in their notebook. Use the table as your canvas if it helps: notebooks open in the middle, or a torn-out page each.</div></li>
-      <li><div><strong>The four questions, together.</strong> The scribe writes the table's answers. Question 2 is the list from step 2, grouped into assumptions and numbered.</div></li>
-      <li><div><strong>Vote for the riskiest assumption.</strong> The scribe reads the numbered list aloud. Each person names one number: the assumption that, if it turned out to be wrong, would sink the whole idea, and that nobody has actually checked. Most votes wins. On a tie, argue for one minute and pick.</div></li>
-      <li><div><strong>One sentence.</strong> We shouldn't build X until we know Y. X is what the brief asks for. Y is the winning assumption, turned into the thing you would need to find out. The scribe reads it out when we call time.</div></li>
-    </ol>
-    <p class="note" style="margin-top:16px">Stuck, or not sure what you are supposed to go after? Open the context below.</p>
-  </section>
-
   <section id="questions" class="questions">
+    <h2>The four questions</h2>
     <ol class="q">
       <li><div><strong>Who pays for this, and why?</strong></div></li>
       <li><div><strong>What would have to be true for this to create value?</strong><span>List the assumptions.</span></div></li>
       <li><div><strong>What is management actually asking?</strong><span>The request is a proposed answer. What was the question?</span></div></li>
       <li><div><strong>What is the cheapest way to find out?</strong></div></li>
     </ol>
+  </section>
+
+  <section id="steps">
+    <h2>What to do at your table</h2>
+    <p class="note">You have about 25 minutes; we will call time. You are not here to plan or design the thing. If someone starts drawing architecture, go back to "What is management actually asking?" 😃</p>
+    <ol class="steps">
+      <li><div><strong>90 seconds individually.</strong> In your notebook, write down every answer you can think of to these two questions. Keep each one short.
+        <ul>
+          <li>Who pays for this?</li>
+          <li>What would have to be true for it to create value?</li>
+        </ul>
+      </div></li>
+      <li><div><strong>Pick a scribe, then go round the table.</strong> Each person reads one answer aloud. Keep going until nobody has anything new. The scribe keeps the table's list in their notebook.</div></li>
+      <li><div><strong>Answer the four questions together.</strong> Work through them as a table. The scribe writes down the answers.
+        <ul>
+          <li><strong>Who pays for this, and why?</strong> Settle it from what came up in the round.</li>
+          <li><strong>What would have to be true for this to create value?</strong> Take the table's list from the round, group it into assumptions, and number them. This is the list you vote on in the next step.</li>
+          <li><strong>What is management actually asking?</strong> The request is a proposed answer. Agree on the question behind it.</li>
+          <li><strong>What is the cheapest way to find out?</strong> Discuss it.</li>
+        </ul>
+      </div></li>
+      <li><div><strong>Vote for the riskiest assumption.</strong> The scribe reads the numbered assumptions aloud. Each person names one: the assumption that, if it turned out to be wrong, would sink the whole idea, and that nobody has actually checked. Most votes wins. On a tie, argue for one minute and pick.</div></li>
+      <li><div><strong>Write one sentence.</strong> Use this template: "We shouldn't build X until we know Y."
+        <ul>
+          <li><strong>X</strong> is the feature the brief asks for.</li>
+          <li><strong>Y</strong> is the assumption that won the vote, rewritten as the thing you would need to find out before building.</li>
+        </ul>
+        For example: "We shouldn't build automatic weekly reports until we know where the time preparing them actually goes." When the time is up, you will be given further instructions on what to do with the sentence.
+      </div></li>
+    </ol>
+    <p class="note" style="margin-top:16px">Stuck, or not sure what you are supposed to go after? Open the context below.</p>
   </section>
 
   <section id="context">
